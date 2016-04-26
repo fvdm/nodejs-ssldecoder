@@ -1,0 +1,40 @@
+{
+  "name": "ssldecoder",
+  "version": "0.1.0",
+  "description": "Check domain SSL/TLS setup with the SSL Decoder.org API (unofficial)",
+  "main": "index.js",
+  "scripts": {
+    "test": "st=0; eslint . || st=1; node test.js || st=1; exit $st"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fvdm/nodejs-ssldecoder.git"
+  },
+  "keywords": [
+    "ssldecoder",
+    "ssl",
+    "tls",
+    "https",
+    "certificate",
+    "diagnostic",
+    "domain",
+    "domainname",
+    "hostname",
+    "api",
+    "lookup",
+    "network"
+  ],
+  "author": "Franklin van de Meent <https://frankl.in> (fr@nkl.in)",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/fvdm/nodejs-ssldecoder/issues"
+  },
+  "homepage": "https://github.com/fvdm/nodejs-ssldecoder#readme",
+  "devDependencies": {
+    "dotest": "^1.9.1",
+    "eslint": "^2.8.0"
+  },
+  "dependencies": {
+    "httpreq": "^0.4.16"
+  }
+}
