@@ -1,5 +1,5 @@
 ssldecoder
-----------
+==========
 
 Check your domain SSL/TLS setup with the SSL Decoder.org API (unofficial)
 
