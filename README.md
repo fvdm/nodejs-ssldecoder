@@ -38,12 +38,23 @@ Installation
 `npm install ssldecoder`
 
 
-##### Configuration
+#### Configuration
 
 param    | type   | required | default                  | description
 :--------|:-------|:---------|:-------------------------|:--------------------------------------
 timeout  | number | no       | `20000`                  | Request wait time out in ms, 1000 = 1 sec
 endpoint | string | no       | `https://ssldecoder.org` | Send calls to another API
+
+
+#### Example
+
+```js
+// Set timeout to 5 seconds and your own server
+var ssldecoder = require ('ssldecoder') ({
+  timeout: 5000,
+  endpoint: 'https://my-box.tld/path'
+});
+```
 
 
 Method .host
