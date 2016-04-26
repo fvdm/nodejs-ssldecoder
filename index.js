@@ -81,7 +81,7 @@ function sendRequeet (params, callback) {
  */
 
 function methodHost (params, callback) {
-  talk (params, callback);
+  sendRequest (params, callback);
 }
 
 /**
