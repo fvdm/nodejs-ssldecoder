@@ -309,7 +309,38 @@ function methodHost (params, callback) {
   callback (new Error ('Invalid host or IP address'));
 }
   sendRequest (params, callback);
+
+
+/**
+ * Method .cert
+ *
+ * @callback callback
+ * @param cert {string} - PEM string or filepath
+ * @param callback {function} - `function (err, data) {}`
+ * @returns {void}
+ */
+
+function methodCert (cert, callback) {
+  var params = {
+    cert: cert
+  };
+
+  if (!cert || !(typeof cert === 'string')) {
+    callback (new Error ('Cert must be a string'));
+    return;
+  }
+
+  if (!!cert.match (/^-----BEGIN/)) {
+    sendRequest (params, callback);
+    return;
+  }
+
+  fs.readFile (cert, { encoding: 'utf8' }, function (err, file) {
+    params.cert = file;
+    sendRequest (params, callback);
+  });
 }
+
 
 /**
  * Configuration
@@ -327,7 +358,8 @@ function setup (cnf) {
   }
 
   return {
-    host: methodHost
+    host: methodHost,
+    cert: methodCert
   };
 }
 
