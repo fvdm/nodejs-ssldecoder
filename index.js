@@ -9,11 +9,95 @@ Contact & bugs:  https://github.com/fvdm/nodejs-ssldecoder/issues
 
 
 var httpreq = require ('httpreq');
+var dns = require ('dns');
 
 var config = {
   endpoint: 'https://ssldecoder.org',
   timeout: 5000
 };
+
+
+/**
+ * Convert an object to an array
+ *
+ * @param obj {object} - The object to convert
+ * @returns {array} - The array
+ */
+
+function Object2Array (obj) {
+  var key;
+  var result = [];
+
+  if (obj instanceof Array) {
+    return obj;
+  }
+
+  if (obj instanceof Object) {
+    for (key in obj) {
+      result.push (obj [key]);
+    }
+
+    return result;
+  }
+
+  return obj;
+}
+
+
+/**
+ * Deep object iteration
+ * Loosely based on http://stackoverflow.com/a/25334210
+ *
+ * @param obj {object} - The object to process
+ * @param func {function} - `function (val, key) { return val + 2; }`
+ * @returns {object} - The processed object
+ */
+
+function deepMap (obj, func) {
+  return Object.keys (obj) .reduce (function (acc, k) {
+    if (typeof obj [k] === 'object') {
+      acc [k] = deepMap (obj [k], func);
+    } else {
+      acc [k] = func (obj [k], k);
+    }
+
+    return acc;
+  }, {});
+}
+
+
+/**
+ * Look for certain keys and convert their value to a boolean
+ *
+ * '1'     -> true
+ * ''      -> false
+ * 'true'  -> true
+ * 'false' -> false
+ *
+ * @param obj {object} - The object to process
+ * @param keys {array} - Keys to look for
+ * @returns {object} - The processed object
+ */
+
+function boolDozer (obj, keys) {
+  obj = deepMap (obj, function (val, key) {
+    if (!!~keys.indexOf (key)) {
+      if (typeof val === 'string' && !!val.match (/^(1|true)$/)) {
+        return true;
+      }
+
+      if (typeof val === 'string' && !!val.match (/^(|false)$/)) {
+        return false;
+      }
+
+      return val;
+    }
+
+    return val;
+  });
+
+  return obj;
+}
 
 
 /**
@@ -78,15 +162,136 @@ function sendRequest (params, callback) {
 
 
 /**
+ * Process host response data
+ *
+ * @callback callback
+ * @param err {Error, null} - Response error
+ * @param data {object} - Response data
+ * @param callback {function} - `function (err, data) {}`
+ */
+
+function processHost (err, data, callback) {
+  var itm;
+  var i;
+
+  var bools = [
+    'tlsv1.2',
+    'tlsv1.1',
+    'tlsv1.0',
+    'sslv3',
+    'sslv2',
+    'working',
+    'heartbeat',
+    'ca',
+    'general',
+    'cert_issued_in_future',
+    'cert_expired',
+    'cert_expires_in_less_than_thirty_days',
+    'issuer_valid'
+  ];
+
+  if (err) {
+    callback (err);
+    return;
+  }
+
+  // Set boolean values
+  data = boolDozer (data, bools);
+
+  // Convert numbered objects to arrays
+  data.connection.chain = Object2Array (data.connection.chain);
+  data.connection.supported_ciphersuites = Object2Array (data.connection.supported_ciphersuites);
+  data.chain = Object2Array (data.chain);
+
+  for (i = 0; i < data.chain.length; i++) {
+    itm = data.chain [i];
+
+    if (itm.ocsp) {
+      itm.ocsp = Object2Array (itm.ocsp);
+    }
+
+    if (itm.crl) {
+      itm.crl = Object2Array (itm.crl);
+    }
+
+    data.chain [i] = itm;
+  }
+
+  // All done
+  callback (null, data);
+}
+
+
+/**
  * Method .host
  *
  * @callback callback
- * @param params {obiect} - Method parameters
+ * @param params {object} - Method parameters
  * @param callback {function} - `function (err, data) {}`
  * @returns {void}
  */
 
 function methodHost (params, callback) {
+  var send = {
+    host: '',
+    port: params.port || 443,
+    fastcheck: params.fastcheck ? 1 : 0
+  };
+
+  // host:ip
+  if (typeof params.host === 'string' && !!params.host.match (/:/)) {
+    send.host = params.host;
+    sendRequest (send, function (rErr, rData) {
+      processHost (rErr, rData, callback);
+    });
+    return;
+  }
+
+  // host && ip
+  if (params.host && params.ip) {
+    send.host = params.host + ':' + params.ip;
+    sendRequest (send, function (rErr, rData) {
+      processHost (rErr, rData, callback);
+    });
+    return;
+  }
+
+  // host && !ip
+  if (params.host && !params.ip) {
+    dns.resolve (params.host, function (err, res) {
+      if (err) {
+        callback (err);
+        return;
+      }
+
+      send.host = params.host + ':' + res [0];
+      sendRequest (send, function (rErr, rData) {
+        processHost (rErr, rData, callback);
+      });
+    });
+
+    return;
+  }
+
+  // !host && ip
+  if (!params.host && params.ip) {
+    dns.reverse (params.ip, function (err, res) {
+      if (err) {
+        callback (err);
+        return;
+      }
+
+      send.host = res [0] + ':' + params.ip;
+      sendRequest (send, function (rErr, rData) {
+        processHost (rErr, rData, callback);
+      });
+    });
+
+    return;
+  }
+
+  callback (new Error ('Invalid host or IP address'));
+}
   sendRequest (params, callback);
 }
 
