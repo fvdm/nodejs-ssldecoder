@@ -31,14 +31,19 @@ function processResponse (err, res, callback) {
   var error = null;
 
   if (err) {
-    callback (err);
+    error = new Error ('Client error');
+    error.error = err;
+    callback (error);
     return;
   }
 
   try {
     data = JSON.parse (data);
   } catch (e) {
-    callback (new Error ('Invalid response'));
+    error = new Error ('Invalid response');
+    error.statusCode = res.statusCode;
+    error.error = e;
+    callback (error);
     return;
   }
 
