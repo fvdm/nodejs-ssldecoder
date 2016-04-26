@@ -10,6 +10,7 @@ Contact & bugs:  https://github.com/fvdm/nodejs-ssldecoder/issues
 
 var httpreq = require ('httpreq');
 var dns = require ('dns');
+var fs = require ('fs');
 
 var config = {
   endpoint: 'https://ssldecoder.org',
