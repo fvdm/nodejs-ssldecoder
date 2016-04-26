@@ -6,7 +6,7 @@ var config = {
   endpoint: process.env.Endpoint || null
 };
 
-var ssl = app (config);
+var ssldecoder = app (config);
 
 
 dotest.add ('Module', function (test) {
@@ -14,15 +14,15 @@ dotest.add ('Module', function (test) {
     .info ('config.timeout:   ' + config.timeout)
     .info ('config.endpoint:  ' + (config.endpoint ? 'custom' : 'live'))
     .isFunction ('fail', 'exports', app)
-    .isObject ('fail', 'interface', ssl)
-    .isFunction ('fail', '.host', ssl && ssl.host)
-    .isFunction ('fail', '.csr', ssl && ssl.csr)
+    .isObject ('fail', 'interface', ssldecoder)
+    .isFunction ('fail', '.host', ssldecoder && ssldecoder.host)
+    .isFunction ('fail', '.csr', ssldecoder && ssldecoder.csr)
     .done ();
 });
 
 
 dotest.add ('Method .host', function (test) {
-  ssl.host ('myhostname.net', function (err, data) {
+  ssldecoder.host ('myhostname.net', function (err, data) {
     var chain = data && data.chain;
     var chainOcsp = chain && chain [0] && chain [0] .ocsp;
     var connection = data && data.connection;
