@@ -6,6 +6,7 @@
   "scripts": {
     "test": "st=0; eslint . || st=1; node test.js || st=1; exit $st"
   },
+  "tonicExampleFilename": "example.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fvdm/nodejs-ssldecoder.git"
