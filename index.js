@@ -309,7 +309,37 @@ function methodHost (params, callback) {
 
   callback (new Error ('Invalid host or IP address'));
 }
-  sendRequest (params, callback);
+
+
+/**
+ * Method .csr
+ *
+ * @callback callback
+ * @param csr {string} - PEM string or filepath
+ * @param callback {function} - `function (err, data) {}`
+ * @returns {void}
+ */
+
+function methodCsr (csr, callback) {
+  var params = {
+    csr: csr
+  };
+
+  if (!csr || !(typeof csr === 'string')) {
+    callback (new Error ('CSR must be a string'));
+    return;
+  }
+
+  if (!!csr.match (/^-----BEGIN/)) {
+    sendRequest (params, callback);
+    return;
+  }
+
+  fs.readFile (csr, { encoding: 'utf8' }, function (err, file) {
+    params.csr = file;
+    sendRequest (params, callback);
+  });
+}
 
 
 /**
@@ -360,6 +390,7 @@ function setup (cnf) {
 
   return {
     host: methodHost,
+    csr: methodCsr,
     cert: methodCert
   };
 }
