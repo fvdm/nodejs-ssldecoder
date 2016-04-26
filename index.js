@@ -83,6 +83,7 @@ function sendRequest (params, callback) {
  * @callback callback
  * @param params {obiect} - Method parameters
  * @param callback {function} - `function (err, data) {}`
+ * @returns {void}
  */
 
 function methodHost (params, callback) {
