@@ -370,8 +370,7 @@ function setup (cnf) {
 
   return {
     host: methodHost,
-    csr: methodCsr,
-    cert: methodCert
+    csr: methodCsr
   };
 }
 
