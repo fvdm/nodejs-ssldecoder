@@ -46,13 +46,8 @@ timeout  | number | no       | `20000`                  | Request wait time out 
 endpoint | string | no       | `https://ssldecoder.org` | Send calls to another API
 
 
-Methods
--------
-
-Each method takes a callback function like in the example above.
-
-
-### .host
+Method .host
+------------
 **( params, callback )**
 
 Retrieve certificate details from a hostname.
@@ -105,13 +100,16 @@ ssldecoder.host (params, processData);
 ```
 
 
-### .csr
+Method .csr
+-----------
 **( csr, callback )**
 
 Process CSR PEM
 
 
-param    | type     | required | description
+#### Arguments
+
+argument | type     | required | description
 :--------|:---------|:---------|:--------------------------------------------
 csr      | string   | yes      | Either `/path/to/csr.pem` or full PEM string
 callback | function | yes      | `function (err, data) {}`
