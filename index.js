@@ -355,7 +355,12 @@ function methodCsr (csr, callback) {
     return;
   }
 
-  fs.readFile (csr, { encoding: 'utf8' }, function (err, file) {
+  fs.readFile (csr, { encoding: 'utf8' }, function (fsErr, file) {
+    if (fsErr) {
+      callback (fsErr);
+      return;
+    }
+
     params.csr = file;
 
     sendRequest (params, function (err, data) {
