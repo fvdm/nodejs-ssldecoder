@@ -14,7 +14,7 @@ var fs = require ('fs');
 
 var config = {
   endpoint: 'https://ssldecoder.org',
-  timeout: 5000
+  timeout: 20000
 };
 
 
