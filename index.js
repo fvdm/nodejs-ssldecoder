@@ -94,8 +94,10 @@ function methodHost (params, callback) {
  */
 
 function setup (cnf) {
-  config.timeout = cnf.timeout || config.timeout;
-  config.endpoint = cnf.endpoint || config.endpoint;
+  if (cnf instanceof Object) {
+    config.timeout = cnf.timeout || config.timeout;
+    config.endpoint = cnf.endpoint || config.endpoint;
+  }
 
   return {
     host: methodHost
