@@ -60,7 +60,7 @@ function processResponse (err, res, callback) {
  * @returns {void}
  */
 
-function sendRequeet (params, callback) {
+function sendRequest (params, callback) {
   var options = {
     url: config.endpoint + '/json.php',
     parameters: params,
