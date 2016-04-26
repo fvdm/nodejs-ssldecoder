@@ -22,7 +22,7 @@ dotest.add ('Module', function (test) {
 
 
 dotest.add ('Method .host', function (test) {
-  ssl.host ({ host: 'myhostname.net' }, function (err, data) {
+  ssl.host ('myhostname.net', function (err, data) {
     var chain = data && data.chain;
     var chainOcsp = chain && chain [0] && chain [0] .ocsp;
     var connection = data && data.connection;

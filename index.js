@@ -251,9 +251,20 @@ function processHost (err, data, callback) {
 function methodHost (params, callback) {
   var send = {
     host: '',
-    port: params.port || 443,
-    fastcheck: params.fastcheck ? 1 : 0
+    port: 443,
+    fastcheck: 0
   };
+
+  // "host"
+  if (typeof params === 'string') {
+    params = {
+      host: params
+    };
+  }
+
+  // set parameters
+  send.port = params.port || send.port;
+  send.fastcheck = params.fastcheck || send.fastcheck;
 
   // host:ip
   if (typeof params.host === 'string' && !!params.host.match (/:/)) {
