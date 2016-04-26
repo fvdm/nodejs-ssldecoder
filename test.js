@@ -17,7 +17,6 @@ dotest.add ('Module', function (test) {
     .isObject ('fail', 'interface', ssl)
     .isFunction ('fail', '.host', ssl && ssl.host)
     .isFunction ('fail', '.csr', ssl && ssl.csr)
-    .isFunction ('fail', '.cert', ssl && ssl.cert)
     .done ();
 });
 
