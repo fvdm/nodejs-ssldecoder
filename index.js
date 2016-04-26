@@ -131,7 +131,23 @@ function processResponse (err, res, callback) {
     return;
   }
 
-  callback (null, data);
+  if (data && data.error) {
+    error = new Error ('API error');
+    error.statusCode = res.statusCode;
+    error.error = data.error;
+    callback (error);
+    return;
+  }
+
+  if (data && !data.data) {
+    error = new Error ('Invalid response');
+    error.statusCode = res.statusCode;
+    error.data = data;
+    callback (error);
+    return;
+  }
+
+  callback (null, data.data);
 }
 
 
