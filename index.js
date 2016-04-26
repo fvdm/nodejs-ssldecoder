@@ -341,14 +341,32 @@ function methodCsr (csr, callback) {
     return;
   }
 
-  if (!!csr.match (/^-----BEGIN/)) {
-    sendRequest (params, callback);
+  if (!!csr.match (/^-----BEGIN CERTIFICATE/)) {
+    sendRequest (params, function (err, data) {
+      if (err) {
+        callback (err);
+        return;
+      }
+
+      data.chain = Object2Array (data.chain);
+      callback (null, data);
+    });
+
     return;
   }
 
   fs.readFile (csr, { encoding: 'utf8' }, function (err, file) {
     params.csr = file;
-    sendRequest (params, callback);
+
+    sendRequest (params, function (err, data) {
+      if (err) {
+        callback (err);
+        return;
+      }
+
+      data.chain = Object2Array (data.chain);
+      callback (null, data);
+    });
   });
 }
 
