@@ -29,10 +29,6 @@ function Object2Array (obj) {
   var key;
   var result = [];
 
-  if (obj instanceof Array) {
-    return obj;
-  }
-
   if (obj instanceof Object) {
     for (key in obj) {
       result.push (obj [key]);
@@ -336,7 +332,7 @@ function methodCsr (csr, callback) {
     csr: csr
   };
 
-  if (!csr || !(typeof csr === 'string')) {
+  if (!csr || typeof csr !== 'string') {
     callback (new Error ('CSR must be a string'));
     return;
   }
