@@ -4,7 +4,7 @@ ssldecoder
 Check your domain SSL/TLS setup with the SSL Decoder.org API (unofficial)
 
 [![Build Status](https://travis-ci.org/fvdm/nodejs-ssldecoder.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-ssldecoder)
-[![Dependency Status](https://gemnasium.com/badges/github.com/fvdm/nodejs-ssldecoder.svg)](https://gemnasium.com/github.com/fvdm/nodejs-ssldecoder)
+[![Dependency Status](https://gemnasium.com/badges/github.com/fvdm/nodejs-ssldecoder.svg)](https://gemnasium.com/github.com/fvdm/nodejs-ssldecoder#runtime-dependencies)
 
 
 * [Node.js](https://nodejs.org)
