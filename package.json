@@ -4,7 +4,7 @@
   "description": "Check domain SSL/TLS setup with the SSL Decoder.org API (unofficial)",
   "main": "index.js",
   "scripts": {
-    "test": "st=0; eslint . || st=1; node test.js || st=1; exit $st"
+    "test": "bash ./test.sh"
   },
   "tonicExampleFilename": "example.js",
   "repository": {
