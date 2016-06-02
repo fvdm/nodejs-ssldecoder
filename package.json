@@ -35,10 +35,10 @@
   },
   "homepage": "https://github.com/fvdm/nodejs-ssldecoder#readme",
   "devDependencies": {
-    "dotest": "^1.9.1",
-    "eslint": "^2.8.0"
+    "dotest": "^1.12.2",
+    "eslint": "^2.11.1"
   },
   "dependencies": {
-    "httpreq": "^0.4.16"
+    "httpreq": "^0.4.22"
   }
 }
