@@ -1,15 +1,8 @@
 sudo: false
-install: true
-language: c
-
-env:
- - TestJob=lint
- - TestJob=coverage
- - TestJob=6
- - TestJob=5
- - TestJob=4
- - TestJob=0.12
-
-script:
- - bash ./test.sh $TestJob
+language: node_js
+node_js:
+ - '6'
+ - '5'
+ - '4'
+ - '0.12'
 
