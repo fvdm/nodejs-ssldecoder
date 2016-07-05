@@ -3,6 +3,9 @@
   "version": "1.0.1",
   "description": "Check domain SSL/TLS setup with the SSL Decoder.org API (unofficial)",
   "main": "index.js",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "scripts": {
     "test": "bash ./test.sh"
   },
