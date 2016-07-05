@@ -38,10 +38,9 @@
   },
   "homepage": "https://github.com/fvdm/nodejs-ssldecoder#readme",
   "devDependencies": {
-    "codeclimate-test-reporter": "^0.3.1",
-    "dotest": "^1.12.2",
-    "eslint": "^2.11.1",
-    "istanbul": "^0.4.3"
+    "dotest": "^1.12.4",
+    "eslint": "^3.0.1",
+    "istanbul": "^0.4.4"
   },
   "dependencies": {
     "httpreq": "^0.4.22"
