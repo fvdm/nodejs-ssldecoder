@@ -19,6 +19,27 @@ var config = {
 
 
 /**
+ * Callback an error
+ * 
+ * @callback callback
+ * @param msg {string} - Error.message
+ * @param err {mixed} - Error.error
+ * @param res {object, null} - Client response
+ * @param callback {function} - `function (err) {}`
+ * @return {void}
+ */
+
+function requestError (msg, err, res, callback) {
+  var error = new Error (msg);
+
+  error.error = err;
+  error.statusCode = res && res.statusCode;
+  error.body = res && res.body;
+  callback (error);
+}
+
+
+/**
  * Convert an object to an array
  *
  * @param obj {object} - The object to convert
@@ -109,38 +130,26 @@ function boolDozer (obj, keys) {
 
 function processResponse (err, res, callback) {
   var data = res && res.body || '';
-  var error = null;
 
   if (err) {
-    error = new Error ('Client error');
-    error.error = err;
-    callback (error);
+    requestError ('Client error', err, null, callback);
     return;
   }
 
   try {
     data = JSON.parse (data);
   } catch (e) {
-    error = new Error ('Invalid response');
-    error.statusCode = res.statusCode;
-    error.error = e;
-    callback (error);
+    requestError ('Invalid response', e, res, callback);
     return;
   }
 
   if (data && data.error) {
-    error = new Error ('API error');
-    error.statusCode = res.statusCode;
-    error.error = data.error;
-    callback (error);
+    requestError ('API error', data.error, res, callback);
     return;
   }
 
   if (data && !data.data) {
-    error = new Error ('Invalid response');
-    error.statusCode = res.statusCode;
-    error.data = data;
-    callback (error);
+    requestError ('Invalid response', null, res, callback);
     return;
   }
 
