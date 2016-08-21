@@ -20,7 +20,7 @@ var config = {
 
 /**
  * Callback an error
- * 
+ *
  * @callback callback
  * @param msg {string} - Error.message
  * @param err {mixed} - Error.error
