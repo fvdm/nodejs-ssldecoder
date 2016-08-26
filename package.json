@@ -38,7 +38,7 @@
   },
   "homepage": "https://github.com/fvdm/nodejs-ssldecoder#readme",
   "devDependencies": {
-    "dotest": "^1.13.0"
+    "dotest": "^1.13.1"
   },
   "dependencies": {
     "httpreq": "^0.4.22"
