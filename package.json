@@ -7,7 +7,7 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "bash ./test.sh"
+    "test": "dotest"
   },
   "tonicExampleFilename": "example.js",
   "repository": {
@@ -38,10 +38,7 @@
   },
   "homepage": "https://github.com/fvdm/nodejs-ssldecoder#readme",
   "devDependencies": {
-    "coveralls": "^2.11.9",
-    "dotest": "^1.12.4",
-    "eslint": "^3.0.1",
-    "istanbul": "^0.4.4"
+    "dotest": "^1.13.0"
   },
   "dependencies": {
     "httpreq": "^0.4.22"
