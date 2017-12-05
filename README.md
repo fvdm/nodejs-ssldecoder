@@ -1,6 +1,8 @@
 ssldecoder
 ==========
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/fvdm/nodejs-ssldecoder.svg)](https://greenkeeper.io/)
+
 Check your domain SSL/TLS setup with the SSL Decoder.org API (unofficial)
 
 [![npm](https://img.shields.io/npm/v/ssldecoder.svg?maxAge=3600)](https://github.com/fvdm/nodejs-ssldecoder/blob/master/CHANGELOG.md)
