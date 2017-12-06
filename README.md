@@ -7,6 +7,7 @@ Check your domain SSL/TLS setup with the SSL Decoder.org API (unofficial)
 [![Build Status](https://travis-ci.org/fvdm/nodejs-ssldecoder.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-ssldecoder)
 [![Dependency Status](https://gemnasium.com/badges/github.com/fvdm/nodejs-ssldecoder.svg)](https://gemnasium.com/github.com/fvdm/nodejs-ssldecoder#runtime-dependencies)
 [![Coverage Status](https://coveralls.io/repos/github/fvdm/nodejs-ssldecoder/badge.svg?branch=master)](https://coveralls.io/github/fvdm/nodejs-ssldecoder?branch=master)
+[![Greenkeeper badge](https://badges.greenkeeper.io/fvdm/nodejs-ssldecoder.svg)](https://greenkeeper.io/)
 
 
 * [Node.js](https://nodejs.org)
